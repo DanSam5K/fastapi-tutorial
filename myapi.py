@@ -27,7 +27,12 @@ async def get_student(student_id: int = Path(description="The ID of the student 
     return students[student_id]
 
 
-
+@app.get("/get-by-name/{student_id}")
+async def get_student(*, student_id: int, name: Optional[str] = None, test: int):
+    for student_id in students:
+        if students[student_id]["name"] == name:
+            return students[student_id]
+    return {"Data": "Not found"}
 
 
 
