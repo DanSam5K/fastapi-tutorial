@@ -22,6 +22,12 @@ app = FastAPI()
 async def index():
     return {"data": {"name": "John"}}
 
+@app.get("/get-student/{student_id}")
+async def get_student(student_id: int = Path(description="The ID of the student you want to view", gt=0, le=3)):
+    return students[student_id]
+
+
+
 
 
 
