@@ -12,6 +12,7 @@ students = {
     }
 }
 
+
 class Student(BaseModel):
     name: str
     age: int
@@ -28,6 +29,7 @@ class UpdateStudent(BaseModel):
 async def index():
     return {"data": {"name": "John"}}
 
+
 @app.get("/get-student/{student_id}")
 async def get_student(student_id: int = Path(description="The ID of the student you want to view", gt=0, le=3)):
     return students[student_id]
@@ -39,6 +41,7 @@ async def get_student(*, student_id: int, name: Optional[str] = None):
         if students[student_id]["name"] == name:
             return students[student_id]
     return {"Data": "Not found"}
+
 
 @app.post("/create-student/{student_id}")
 async def create_student(student_id: int, student: Student):
@@ -61,5 +64,14 @@ async def update_student(student_id: int, student: UpdateStudent):
         students[student_id].year = student.year
 
     return students[student_id]
+
+
+@app.delete("/delete-student/{student_id}")
+async def delete_student(student_id: int):
+    if student_id not in students:
+        return {"Error": "Student does not exist"}
+    del students[student_id]
+    return {"Message": "Student deleted successfully"}
+
 
 
