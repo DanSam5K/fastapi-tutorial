@@ -72,6 +72,3 @@ async def delete_student(student_id: int):
         return {"Error": "Student does not exist"}
     del students[student_id]
     return {"Message": "Student deleted successfully"}
-
-
-
